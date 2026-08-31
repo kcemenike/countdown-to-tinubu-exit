@@ -359,7 +359,105 @@
   }
 
   /* ======================================================================
-     6. Ambient particle field
+     6. Add to home screen
+     ====================================================================== */
+
+  var installSection = $('[data-install]');
+  var installBtn = $('[data-install-go]');
+  var installLabel = $('[data-install-label]');
+  var sheet = $('[data-sheet]');
+
+  var isStandalone =
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    window.navigator.standalone === true;
+
+  var isIOS =
+    /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    // iPadOS 13+ reports itself as a Mac; the touch points give it away.
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  var isSafari = /^((?!chrome|android|crios|fxios|edgios).)*safari/i.test(navigator.userAgent);
+
+  if (isStandalone) document.body.classList.add('is-installed');
+
+  function openSheet() {
+    if (!sheet) return;
+    sheet.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var close = $('[data-sheet-close]', sheet);
+    if (close) close.focus();
+  }
+
+  function closeSheet() {
+    if (!sheet) return;
+    sheet.hidden = true;
+    document.body.style.overflow = '';
+    if (installBtn) installBtn.focus();
+  }
+
+  if (sheet) {
+    $$('[data-sheet-close]', sheet).forEach(function (el) {
+      el.addEventListener('click', closeSheet);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !sheet.hidden) closeSheet();
+    });
+  }
+
+  if (installSection && installBtn && !isStandalone) {
+    var deferredPrompt = null;
+
+    // Android / desktop Chromium: the browser tells us when it is installable.
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault(); // suppress the mini-infobar, use our own button
+      deferredPrompt = e;
+      installSection.hidden = false;
+      installSection.classList.add('is-in');
+    });
+
+    // iOS never fires that event, so Safari gets the instruction sheet instead.
+    if (isIOS && isSafari) {
+      installSection.hidden = false;
+      installSection.classList.add('is-in');
+      installLabel.textContent = 'How to pin it';
+    }
+
+    installBtn.addEventListener('click', function () {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function (choice) {
+          if (choice.outcome === 'accepted') {
+            installSection.hidden = true;
+            say('Pinned. The clock is on your home screen.');
+          }
+          deferredPrompt = null;
+        });
+        return;
+      }
+      openSheet();
+    });
+
+    window.addEventListener('appinstalled', function () {
+      deferredPrompt = null;
+      installSection.hidden = true;
+      say('Pinned. The clock is on your home screen.');
+    });
+  }
+
+  /* ======================================================================
+     7. Service worker — offline countdown, and Android installability
+     ====================================================================== */
+
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {
+        // Offline support is a bonus; the page works fine without it.
+      });
+    });
+  }
+
+  /* ======================================================================
+     8. Ambient particle field
      ====================================================================== */
 
   var canvas = $('#field');

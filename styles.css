@@ -737,6 +737,22 @@ main {
   z-index: -1;
 }
 
+/* struck-through word with its replacement alongside */
+.inset__lead del {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 0.09em;
+}
+
+.inset__lead ins {
+  margin-left: 0.35em;
+  color: var(--gold);
+  text-decoration: none;
+  transform: rotate(-1.5deg);
+  display: inline-block;
+}
+
 .inset__body {
   color: #c4dcd0;
   margin-bottom: 0.9rem;
@@ -1045,6 +1061,199 @@ main {
 }
 
 /* ==========================================================================
+   Add to home screen
+   ========================================================================== */
+
+.install {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  padding: clamp(1.2rem, 2.6vw, 1.7rem);
+  border-radius: 22px;
+  background: linear-gradient(120deg, rgba(11, 38, 26, 0.75), rgba(5, 18, 13, 0.8));
+  border: 1px solid var(--stroke);
+  box-shadow: 0 30px 70px -50px rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.install[hidden] {
+  display: none;
+}
+
+.install__badge img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(124, 255, 178, 0.22), 0 14px 32px -14px rgba(0, 0, 0, 0.9);
+}
+
+.install__copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.install__copy h3 {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 0.35rem;
+}
+
+.install__copy p {
+  font-size: 0.86rem;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.install .btn {
+  margin-top: 0;
+  flex: none;
+}
+
+@media (max-width: 640px) {
+  .install {
+    flex-direction: column;
+    text-align: center;
+  }
+  .install .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* --- iOS instruction sheet ------------------------------------------------ */
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: end center;
+}
+
+.sheet[hidden] {
+  display: none;
+}
+
+.sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 9, 6, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fade-in 0.3s ease both;
+}
+
+.sheet__panel {
+  position: relative;
+  width: min(460px, 100%);
+  margin: 0 auto max(1rem, env(safe-area-inset-bottom));
+  padding: 1.7rem 1.5rem 1.5rem;
+  border-radius: 26px;
+  background: linear-gradient(170deg, rgba(16, 50, 35, 0.98), rgba(6, 22, 15, 0.99));
+  border: 1px solid rgba(124, 255, 178, 0.22);
+  box-shadow: 0 -20px 70px -30px rgba(0, 0, 0, 1);
+  animation: rise 0.42s var(--ease) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+}
+
+.sheet__x {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--stroke);
+  background: rgba(124, 255, 178, 0.06);
+  color: var(--muted);
+}
+.sheet__x svg {
+  width: 16px;
+  height: 16px;
+}
+.sheet__x:hover {
+  color: var(--paper);
+}
+
+.sheet__panel h3 {
+  font-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.sheet__lead {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.sheet__steps {
+  list-style: none;
+  padding: 0;
+  margin: 1.3rem 0 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sheet__steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 0.94rem;
+  color: #cfe9dc;
+  line-height: 1.5;
+}
+
+.sheet__steps b {
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.sheet__n {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #03150d;
+  background: var(--green-lit);
+}
+
+.sheet__glyph {
+  width: 17px;
+  height: 17px;
+  vertical-align: -4px;
+  margin: 0 1px;
+  color: #58a6ff; /* the blue iOS actually uses for the share glyph */
+}
+
+.sheet__note {
+  margin-top: 1.3rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--stroke);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
    Footer + toast
    ========================================================================== */
 
@@ -1067,6 +1276,21 @@ main {
 }
 .foot p span {
   color: var(--gold);
+}
+
+.foot__disclaimer {
+  margin-top: 1.2rem !important;
+  font-family: var(--font-body) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-size: 0.82rem !important;
+  color: #cfe9dc;
+  max-width: 52ch;
+  margin-inline: auto;
+  padding: 0.75rem 1.1rem;
+  border-radius: 12px;
+  background: rgba(124, 255, 178, 0.05);
+  border: 1px solid var(--stroke);
 }
 
 .foot__fine {
@@ -1117,6 +1341,34 @@ main {
   opacity: 1;
   transform: none;
   filter: none;
+}
+
+/* ==========================================================================
+   Installed (home-screen) mode
+   ========================================================================== */
+
+/* No browser chrome, so the masthead has to clear the notch itself. */
+@media (display-mode: standalone), (display-mode: minimal-ui), (display-mode: fullscreen) {
+  .masthead {
+    padding-top: max(1.6rem, calc(env(safe-area-inset-top) + 0.9rem));
+  }
+  .foot {
+    padding-bottom: max(3rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+  }
+  .install {
+    display: none !important;
+  }
+}
+
+/* Same treatment for iOS, which reports standalone through navigator only. */
+body.is-installed .masthead {
+  padding-top: max(1.6rem, calc(env(safe-area-inset-top) + 0.9rem));
+}
+body.is-installed .foot {
+  padding-bottom: max(3rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+}
+body.is-installed .install {
+  display: none !important;
 }
 
 /* ==========================================================================

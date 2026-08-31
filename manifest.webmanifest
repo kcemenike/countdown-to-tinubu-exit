@@ -1,0 +1,56 @@
+{
+  "name": "Countdown to January 16, 2027",
+  "short_name": "Countdown",
+  "description": "A live countdown to January 16, 2027. Plan your vote, organise your polling unit, defend your mandate.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#04120c",
+  "theme_color": "#04120c",
+  "categories": ["news", "politics", "education"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/narrow.png",
+      "sizes": "500x1000",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "The countdown to January 16, 2027"
+    },
+    {
+      "src": "screenshots/wide.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "The countdown to January 16, 2027"
+    }
+  ]
+}

@@ -4,17 +4,32 @@ A single-page civic countdown: a live timer to **16 January 2027**, the plan
 (organise your polling unit → community → ward → LGA → state), and two paths
 depending on whether the reader holds a PVC.
 
-No build step, no dependencies, no tracking. Three files and a share image.
+No build step, no dependencies, no tracking — plain static HTML, CSS and JS.
+
+It is also an installable PWA — it can be pinned to the home screen on both
+Android and iOS, where it opens full screen and keeps working offline.
 
 ## Files
 
-| File         | Purpose                                                             |
-| ------------ | ------------------------------------------------------------------- |
-| `index.html` | Markup and meta tags (Open Graph / Twitter card)                    |
-| `styles.css` | All styling — glass panels, aurora background, odometer, responsive |
-| `script.js`  | Countdown, odometer reels, reveal-on-scroll, share links, canvas    |
-| `og.html`    | Source for the social share card (not linked from the site)         |
-| `og.png`     | Rendered 1200×630 share card                                        |
+| File                    | Purpose                                                             |
+| ----------------------- | ------------------------------------------------------------------- |
+| `index.html`            | Markup, meta tags, manifest link, iOS install tags                  |
+| `styles.css`            | All styling — glass panels, aurora background, odometer, responsive |
+| `script.js`             | Countdown, odometer reels, reveals, share, install prompt, SW reg   |
+| `sw.js`                 | Service worker — offline shell, Android installability              |
+| `manifest.webmanifest`  | PWA manifest (name, icons, colours, screenshots)                    |
+| `apple-touch-icon.png`  | iOS home-screen icon (180×180, at the path iOS probes by default)   |
+| `icons/`                | Generated app icons, including maskable variants                    |
+| `splash/`               | Generated iOS launch screens, one per device resolution             |
+| `screenshots/`          | Generated shots for Chrome's install dialog                         |
+| `og.png`                | Rendered 1200×630 share card                                        |
+| `og.html`               | Source for the share card (not linked from the site)                |
+| `icon.html`             | Source for the app icons (not linked from the site)                 |
+| `splash.html`           | Source for the launch screens (not linked from the site)            |
+| `tools/build-assets.sh` | Regenerates everything in the four rows above                       |
+
+Every PNG in the repo is generated. Never hand-edit them — change the HTML
+source and re-run `./tools/build-assets.sh`.
 
 ## Local preview
 
@@ -62,15 +77,51 @@ var TERM_START = new Date('2023-05-29T00:00:00+01:00').getTime(); // "road so fa
   the `data-copy` attribute on "Copy the invite link" below it.
 - **Share copy.** `SHARE_TEXT` in `script.js`.
 
-## Re-rendering the share card
+## Regenerating images
 
-`og.png` is a screenshot of `og.html`. After editing `og.html`:
+Every PNG — share card, icons, launch screens, install screenshots — is a
+headless-Chrome render of an HTML source in this repo:
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless --disable-gpu --hide-scrollbars --virtual-time-budget=4000 \
-  --window-size=1200,630 --screenshot=og.png "file://$PWD/og.html"
+./tools/build-assets.sh
 ```
+
+Headless Chrome refuses to render a viewport narrower than 500px, so the small
+icons are rendered at 512 and downscaled with `sips`. That is why the script is
+macOS-only.
+
+## Home-screen install
+
+**Android / Chrome.** Standard PWA: `manifest.webmanifest` plus a service
+worker with a fetch handler. Chrome fires `beforeinstallprompt`, `script.js`
+suppresses the default mini-infobar and reveals the "Add to home screen" card
+instead, so the prompt appears on a deliberate tap.
+
+**iOS / Safari.** Safari has no install API and ignores the manifest's icons,
+so it is driven entirely by `<meta name="apple-*">` and `<link rel="apple-*">`
+tags in the head. `script.js` detects iOS Safari and shows an instruction sheet
+(Share → Add to Home Screen) since nothing can be automated. Chrome and Firefox
+on iOS cannot add web apps at all — that is an iOS restriction, and the sheet
+says so.
+
+Launch screens need an exact `device-width` / `device-height` /
+`-webkit-device-pixel-ratio` match or iOS shows a blank screen, hence the ten
+`apple-touch-startup-image` tags. To support a new device, add its resolution
+to the loop in `tools/build-assets.sh` and add a matching `<link>`.
+
+Once installed, `body.is-installed` and the `display-mode: standalone` media
+query pad the header and footer past the notch and home indicator, and hide the
+install card.
+
+### Cache behaviour
+
+`sw.js` is network-first for navigations and stale-while-revalidate for
+everything else, so a new deploy shows up on the next load rather than being
+pinned by the cache. If you change the shell file list, bump `CACHE` in
+`sw.js` — the old cache is deleted on activate.
+
+Note that the countdown is computed from the device clock, so an offline launch
+still shows the correct time.
 
 ## Implementation notes
 

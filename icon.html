@@ -1,0 +1,113 @@
+<!doctype html>
+<!--
+  Source for the home-screen icons. Not linked from the site.
+  Rendered at 512x512 and downscaled by tools/build-assets.sh.
+  Add ?maskable=1 to shrink the artwork into Android's 80% safe circle.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=JetBrains+Mono:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 512px;
+        height: 512px;
+        overflow: hidden;
+      }
+      body {
+        /* Full bleed, no transparency — iOS rounds the corners itself. */
+        background: radial-gradient(circle at 32% 24%, #0d3c27 0%, #061a11 58%, #03100a 100%);
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(124, 255, 178, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 255, 178, 0.08) 1px, transparent 1px);
+        background-size: 48px 48px;
+        -webkit-mask-image: radial-gradient(circle at 50% 45%, #000 25%, transparent 72%);
+      }
+      /* Everything inside .art scales down together for the maskable variant. */
+      .art {
+        position: relative;
+        width: 512px;
+        height: 512px;
+        display: grid;
+        place-items: center;
+      }
+      body.maskable .art {
+        transform: scale(0.7);
+      }
+      svg.ring {
+        position: absolute;
+        inset: 0;
+        transform: rotate(-90deg);
+      }
+      .stack {
+        position: relative;
+        text-align: center;
+        line-height: 1;
+      }
+      .day {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 800;
+        font-size: 186px;
+        letter-spacing: -0.06em;
+        background: linear-gradient(180deg, #ffffff 10%, #b8f2d3 60%, #3f9d70 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .month {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 46px;
+        letter-spacing: 0.22em;
+        color: #ffd166;
+        margin-top: 20px;
+        text-indent: 0.22em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid"></div>
+    <div class="art">
+      <svg class="ring" viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7cffb2" />
+            <stop offset="60%" stop-color="#21d07a" />
+            <stop offset="100%" stop-color="#ffd166" />
+          </linearGradient>
+        </defs>
+        <circle cx="256" cy="256" r="196" fill="none" stroke="rgba(124,255,178,0.13)" stroke-width="20" />
+        <circle
+          cx="256"
+          cy="256"
+          r="196"
+          fill="none"
+          stroke="url(#arc)"
+          stroke-width="20"
+          stroke-linecap="round"
+          stroke-dasharray="924 1232"
+        />
+      </svg>
+      <div class="stack">
+        <div class="day">16</div>
+        <div class="month">JAN 27</div>
+      </div>
+    </div>
+    <script>
+      if (location.search.indexOf('maskable') > -1) document.body.classList.add('maskable');
+    </script>
+  </body>
+</html>

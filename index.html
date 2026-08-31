@@ -43,6 +43,44 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2304120c'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%2321d07a' stroke-width='8' stroke-linecap='round' stroke-dasharray='140 200' transform='rotate(-90 50 50)'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%23ffd166'/%3E%3C/svg%3E"
     />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+
+    <!-- Home-screen install: Android/Chrome reads the manifest, iOS reads the
+         apple-* tags below. Regenerate the images with tools/build-assets.sh. -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Countdown" />
+    <meta name="application-name" content="Countdown" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/icon-120.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png" />
+
+    <!-- iOS launch screens. Safari needs an exact width/height/dpr match or it
+         shows a blank screen, hence one entry per device. -->
+    <link rel="apple-touch-startup-image" href="splash/splash-750x1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-828x1792.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1125x2436.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1170x2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1179x2556.png"
+      media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1206x2622.png"
+      media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1242x2688.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1284x2778.png"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1290x2796.png"
+      media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image" href="splash/splash-1320x2868.png"
+      media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3)" />
 
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -166,9 +204,10 @@
         <div class="inset__glow" aria-hidden="true"></div>
         <span class="inset__tag">The plan</span>
         <p class="inset__lead">
-          They say <mark></mark>all is fair</mark>, so you must <mark>prepare</mark>, not for an election, but for <mark>war</mark> -
+          Tinubu said <mark>all is fair</mark> in <del>politics</del><ins>war</ins>, so you must
+          <mark>prepare</mark>, not for an election, but for an <mark>electoral revolution</mark> -
           You must defend your vote <mark>by any means necessary.</mark>
-        </br>Nobody has the monopoly of <mark>madness</mark>.
+          <br />Nobody has the monopoly of <mark>madness</mark>.
         </p>
         <p class="inset__body">And planning requires strategy.</p>
         <p class="inset__body">
@@ -264,10 +303,35 @@
           <button class="chip chip--btn" type="button" data-copy="">Copy page link</button>
         </div>
       </section>
+
+      <!-- add to home screen ------------------------------------------------->
+      <!-- Revealed by script.js only when the device can actually install. -->
+      <section class="install reveal" data-install hidden>
+        <div class="install__badge" aria-hidden="true">
+          <img src="icons/icon-192.png" alt="" width="64" height="64" />
+        </div>
+        <div class="install__copy">
+          <h3>Keep the clock on your home screen</h3>
+          <p>
+            Pin it like an app — it opens full screen, counts down without a browser bar, and keeps
+            working with no signal.
+          </p>
+        </div>
+        <button class="btn btn--primary" type="button" data-install-go>
+          <span data-install-label>Add to home screen</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 4v12M7 11l5 5 5-5M4 20h16" />
+          </svg>
+        </button>
+      </section>
     </main>
 
     <footer class="foot">
       <p>Plan. Organise. Vote. <span>Defend.</span></p>
+      <p class="foot__disclaimer">
+        This page does not support or call for violence, and does not support violent conduct of any
+        kind.
+      </p>
       <p class="foot__fine">
         A civic countdown. Not affiliated with INEC or any political party. Election date is subject
         to INEC's official timetable.
@@ -275,6 +339,41 @@
     </footer>
 
     <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+    <!-- iOS has no install API, so Safari users get the three taps spelled out. -->
+    <div class="sheet" data-sheet hidden>
+      <div class="sheet__scrim" data-sheet-close></div>
+      <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <button class="sheet__x" type="button" data-sheet-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <h3 id="sheet-title">Add to your home screen</h3>
+        <p class="sheet__lead">Three taps in Safari:</p>
+        <ol class="sheet__steps">
+          <li>
+            <span class="sheet__n">1</span>
+            <span>
+              Tap the <b>Share</b> button
+              <svg class="sheet__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-label="Share">
+                <path d="M12 3v12M8.5 6.5L12 3l3.5 3.5" />
+                <path d="M6 11H4.5v9.5h15V11H18" />
+              </svg>
+              at the bottom of the screen.
+            </span>
+          </li>
+          <li>
+            <span class="sheet__n">2</span>
+            <span>Scroll down and choose <b>Add to Home Screen</b>.</span>
+          </li>
+          <li><span class="sheet__n">3</span><span>Tap <b>Add</b>. Done.</span></li>
+        </ol>
+        <p class="sheet__note">
+          It has to be Safari — Chrome and Firefox on iPhone cannot add web apps to the home screen.
+        </p>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

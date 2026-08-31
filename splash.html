@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  Source for the iOS launch screens. Not linked from the site.
+  Everything is sized in vmin/vmax so one design renders correctly at every
+  device resolution. Rendered by tools/build-assets.sh.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&family=Inter:wght@700&family=JetBrains+Mono:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        background: #04120c;
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(14vmin);
+      }
+      .g1 {
+        width: 110vmin;
+        height: 110vmin;
+        left: -30vmin;
+        top: -24vmin;
+        background: radial-gradient(circle, rgba(0, 135, 81, 0.85), transparent 62%);
+      }
+      .g2 {
+        width: 90vmin;
+        height: 90vmin;
+        right: -28vmin;
+        bottom: -20vmin;
+        background: radial-gradient(circle, rgba(242, 164, 19, 0.35), transparent 64%);
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(124, 255, 178, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 255, 178, 0.06) 1px, transparent 1px);
+        background-size: 9vmin 9vmin;
+        -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 45%, #000, transparent 78%);
+      }
+      .wrap {
+        position: relative;
+        text-align: center;
+      }
+      .badge {
+        position: relative;
+        width: 38vmin;
+        height: 38vmin;
+        margin: 0 auto 6vmin;
+        display: grid;
+        place-items: center;
+      }
+      .badge svg {
+        position: absolute;
+        inset: 0;
+        transform: rotate(-90deg);
+      }
+      .day {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 800;
+        font-size: 14vmin;
+        line-height: 1;
+        letter-spacing: -0.06em;
+        background: linear-gradient(180deg, #ffffff 10%, #b8f2d3 60%, #3f9d70 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .month {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 3.4vmin;
+        letter-spacing: 0.22em;
+        text-indent: 0.22em;
+        color: #ffd166;
+        margin-top: 1.4vmin;
+      }
+      h1 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 500;
+        font-size: 5.4vmin;
+        letter-spacing: -0.01em;
+        color: #d7ecdf;
+      }
+      p {
+        margin-top: 2.4vmin;
+        font-family: 'Inter', sans-serif;
+        font-size: 2.9vmin;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #ffd166;
+        text-indent: 0.28em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="grid"></div>
+    <div class="wrap">
+      <div class="badge">
+        <svg viewBox="0 0 512 512">
+          <defs>
+            <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7cffb2" />
+              <stop offset="60%" stop-color="#21d07a" />
+              <stop offset="100%" stop-color="#ffd166" />
+            </linearGradient>
+          </defs>
+          <circle cx="256" cy="256" r="196" fill="none" stroke="rgba(124,255,178,0.13)" stroke-width="20" />
+          <circle cx="256" cy="256" r="196" fill="none" stroke="url(#arc)" stroke-width="20"
+            stroke-linecap="round" stroke-dasharray="924 1232" />
+        </svg>
+        <div>
+          <div class="day">16</div>
+          <div class="month">JAN 27</div>
+        </div>
+      </div>
+      <h1>The Countdown</h1>
+      <p>Nigeria &middot; 2027</p>
+    </div>
+  </body>
+</html>
