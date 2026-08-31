@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Countdown to January 16, 2027 — Plan Your Vote, Defend Your Vote</title>
+
+    <meta
+      name="description"
+      content="A live countdown to January 16, 2027. Plan how you will vote, organise your polling unit, and defend your mandate."
+    />
+    <meta name="theme-color" content="#04120c" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Countdown to January 16, 2027" />
+    <meta
+      property="og:description"
+      content="Plan ahead. Organise your polling unit. Defend your vote. The future is in your hands — start now."
+    />
+    <!-- Update the host below if the site moves. -->
+    <meta property="og:url" content="https://kcemenike.github.io/countdown-to-tinubu-exit/" />
+    <meta
+      property="og:image"
+      content="https://kcemenike.github.io/countdown-to-tinubu-exit/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://kcemenike.github.io/countdown-to-tinubu-exit/og.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2304120c'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%2321d07a' stroke-width='8' stroke-linecap='round' stroke-dasharray='140 200' transform='rotate(-90 50 50)'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%23ffd166'/%3E%3C/svg%3E"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <!-- ambient layers -------------------------------------------------- -->
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true">
+      <span class="aurora__blob aurora__blob--1"></span>
+      <span class="aurora__blob aurora__blob--2"></span>
+      <span class="aurora__blob aurora__blob--3"></span>
+    </div>
+    <div class="grid-veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="spotlight" aria-hidden="true"></div>
+
+    <a class="skip" href="#countdown">Skip to countdown</a>
+
+    <!-- masthead ---------------------------------------------------------->
+    <header class="masthead">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <b>The&nbsp;Countdown</b>
+          <em>Nigeria &middot; 2027</em>
+        </span>
+      </div>
+      <div class="masthead__date">
+        <span class="pulse" aria-hidden="true"></span>
+        <span>Saturday, 16 January 2027</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- hero ------------------------------------------------------------>
+      <section class="hero" id="countdown">
+        <p class="eyebrow reveal">
+          <span>The clock is already running</span>
+        </p>
+
+        <h1 class="hero__title reveal" data-delay="1">
+          <span class="line">Nigeria decides in</span>
+        </h1>
+
+        <!-- live region for screen readers -->
+        <p class="sr-only" id="clock-sr" aria-live="polite" aria-atomic="true"></p>
+
+        <div class="clock" role="timer" aria-labelledby="clock-sr">
+          <div class="unit reveal" data-unit="days" data-pad="3" data-delay="2">
+            <div class="unit__frame">
+              <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="ring__track" cx="100" cy="100" r="92" />
+                <circle class="ring__bar" cx="100" cy="100" r="92" />
+              </svg>
+              <div class="reels" data-reels aria-hidden="true"></div>
+            </div>
+            <span class="unit__label">Days</span>
+          </div>
+
+          <span class="sep reveal" data-delay="2" aria-hidden="true">:</span>
+
+          <div class="unit reveal" data-unit="hours" data-pad="2" data-delay="3">
+            <div class="unit__frame">
+              <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="ring__track" cx="100" cy="100" r="92" />
+                <circle class="ring__bar" cx="100" cy="100" r="92" />
+              </svg>
+              <div class="reels" data-reels aria-hidden="true"></div>
+            </div>
+            <span class="unit__label">Hours</span>
+          </div>
+
+          <span class="sep reveal" data-delay="3" aria-hidden="true">:</span>
+
+          <div class="unit reveal" data-unit="minutes" data-pad="2" data-delay="4">
+            <div class="unit__frame">
+              <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="ring__track" cx="100" cy="100" r="92" />
+                <circle class="ring__bar" cx="100" cy="100" r="92" />
+              </svg>
+              <div class="reels" data-reels aria-hidden="true"></div>
+            </div>
+            <span class="unit__label">Minutes</span>
+          </div>
+
+          <span class="sep reveal" data-delay="4" aria-hidden="true">:</span>
+
+          <div class="unit unit--seconds reveal" data-unit="seconds" data-pad="2" data-delay="5">
+            <div class="unit__frame">
+              <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="ring__track" cx="100" cy="100" r="92" />
+                <circle class="ring__bar" cx="100" cy="100" r="92" />
+              </svg>
+              <div class="reels" data-reels aria-hidden="true"></div>
+            </div>
+            <span class="unit__label">Seconds</span>
+          </div>
+        </div>
+
+        <div class="term reveal" data-delay="6">
+          <div class="term__head">
+            <span>29 May 2023</span>
+            <strong data-term-pct>0%</strong>
+            <span>16 Jan 2027</span>
+          </div>
+          <div class="term__bar">
+            <div class="term__fill" data-term-fill></div>
+            <div class="term__head-dot" data-term-dot></div>
+          </div>
+          <p class="term__note">of the road to the next general election has already gone by.</p>
+        </div>
+
+        <a class="scroll-cue reveal" data-delay="7" href="#plan">
+          <span>What you do between now and then</span>
+          <span class="scroll-cue__arrow" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <!-- strategy inset ---------------------------------------------------->
+      <section class="inset reveal" id="plan">
+        <div class="inset__glow" aria-hidden="true"></div>
+        <span class="inset__tag">The plan</span>
+        <p class="inset__lead">
+          For your vote to count, you must <mark>plan ahead</mark> on how you will vote — and
+          <mark>defend your vote</mark> by any means necessary.
+        </p>
+        <p class="inset__body">And planning requires strategy.</p>
+        <p class="inset__body">
+          Now is the time to organise everyone in your <strong>polling unit</strong>, your
+          <strong>community</strong>, your <strong>ward</strong>, your
+          <strong>local government</strong> and your <strong>state</strong>.
+        </p>
+        <p class="inset__body inset__body--stress">
+          Whether you are a voter or not, the future is in your hands — and you must start now.
+        </p>
+
+        <ul class="ladder" aria-label="Levels of organising">
+          <li><span>01</span>Polling unit</li>
+          <li><span>02</span>Community</li>
+          <li><span>03</span>Ward</li>
+          <li><span>04</span>Local government</li>
+          <li><span>05</span>State</li>
+        </ul>
+      </section>
+
+      <!-- two paths --------------------------------------------------------->
+      <h2 class="section-title reveal">Where do you stand today?</h2>
+
+      <div class="paths">
+        <article class="card card--yes reveal" data-tilt>
+          <div class="card__sheen" aria-hidden="true"></div>
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="3" />
+              <circle cx="8.5" cy="11" r="2.5" />
+              <path d="M4.5 17c.8-2 2.3-3 4-3s3.2 1 4 3M14.5 9.5h5M14.5 13h5" />
+            </svg>
+          </div>
+          <h3 class="card__title">I have a PVC</h3>
+          <p class="card__body">
+            Mobilise the people in your polling unit. Sign up on <strong>SmartBallot</strong> and
+            connect with fellow voters on anti-rigging strategies.
+          </p>
+          <a
+            class="btn btn--primary"
+            href="https://smartballotapp.com/supergroup?code=NCZOG5PL-PCI6G75L"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Join the SmartBallot supergroup</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h13M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <button class="linkish" type="button" data-copy="https://smartballotapp.com/supergroup?code=NCZOG5PL-PCI6G75L">
+            Copy the invite link
+          </button>
+        </article>
+
+        <article class="card card--no reveal" data-delay="1" data-tilt>
+          <div class="card__sheen" aria-hidden="true"></div>
+          <div class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l8 3.5v5c0 4.6-3.2 8.3-8 9.5-4.8-1.2-8-4.9-8-9.5v-5L12 3z" />
+              <path d="M9.5 12.2l1.9 1.9 3.6-3.9" />
+            </svg>
+          </div>
+          <h3 class="card__title">I don't have a PVC</h3>
+          <p class="card__body">
+            Whether you have a PVC or not, you have a responsibility to ensure nobody engages in
+            electoral malpractice in January. We will all march out to defend our mandate.
+          </p>
+          <p class="card__ask">Are you ready?</p>
+          <button class="btn btn--ghost" type="button" data-ready>
+            <span data-ready-label>I'm ready</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </button>
+        </article>
+      </div>
+
+      <!-- share ------------------------------------------------------------->
+      <section class="share reveal">
+        <p class="share__title">One person you tell today is one more polling unit covered.</p>
+        <div class="share__row">
+          <a class="chip" data-share="whatsapp" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.6-6c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.6.1a6.7 6.7 0 01-3.3-2.9c-.2-.4.2-.4.6-1.2a.6.6 0 000-.6c0-.2-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 2.9 2.9 0 00-.9 2.2 5 5 0 001.1 2.7 11.5 11.5 0 004.4 3.9c1.6.6 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.2-.2-.3-.4-.4z"/></svg>
+            WhatsApp
+          </a>
+          <a class="chip" data-share="x" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3l-6.6 7.5L21.7 21h-5.9l-4.3-5.6L6.4 21H3.3l7-8L2.6 3h6l3.9 5.2L17.5 3zm-1 16h1.6L7.6 4.7H5.9L16.5 19z"/></svg>
+            X
+          </a>
+          <a class="chip" data-share="telegram" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3l-3 14.2c-.2 1-.8 1.3-1.7.8l-4.6-3.4-2.2 2.2c-.3.3-.5.5-1 .5l.3-4.7L18 5.6c.4-.3-.1-.5-.6-.2L7.2 11.9l-4.5-1.4c-1-.3-1-1 .2-1.4l17.6-6.8c.8-.3 1.5.2 1.4 1z"/></svg>
+            Telegram
+          </a>
+          <button class="chip chip--btn" type="button" data-copy="">Copy page link</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>Plan. Organise. Vote. <span>Defend.</span></p>
+      <p class="foot__fine">
+        A civic countdown. Not affiliated with INEC or any political party. Election date is subject
+        to INEC's official timetable.
+      </p>
+    </footer>
+
+    <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

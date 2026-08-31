@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+  Source for og.png (the social share card). Not linked from the site.
+  Re-render after editing:
+    chrome --headless --window-size=1200,630 --screenshot=og.png og.html
+  (see README.md)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: #04120c;
+        color: #eaf6ef;
+        font-family: 'Inter', sans-serif;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 74px 80px;
+      }
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+      }
+      .g1 {
+        width: 720px;
+        height: 720px;
+        left: -220px;
+        top: -300px;
+        background: radial-gradient(circle, rgba(0, 135, 81, 0.9), transparent 62%);
+      }
+      .g2 {
+        width: 560px;
+        height: 560px;
+        right: -160px;
+        bottom: -240px;
+        background: radial-gradient(circle, rgba(242, 164, 19, 0.42), transparent 64%);
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(124, 255, 178, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 255, 178, 0.07) 1px, transparent 1px);
+        background-size: 60px 60px;
+        -webkit-mask-image: radial-gradient(ellipse 80% 70% at 40% 40%, #000, transparent 75%);
+      }
+      .inner {
+        position: relative;
+      }
+      .kicker {
+        display: inline-block;
+        font-size: 20px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #ffd166;
+        border: 1px solid rgba(255, 209, 102, 0.35);
+        background: rgba(255, 209, 102, 0.07);
+        border-radius: 999px;
+        padding: 10px 24px;
+        margin-bottom: 34px;
+      }
+      h1 {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 800;
+        font-size: 104px;
+        line-height: 0.95;
+        letter-spacing: -0.045em;
+        background: linear-gradient(100deg, #ffffff 8%, #7cffb2 55%, #ffd166 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 500;
+        font-size: 34px;
+        letter-spacing: -0.01em;
+        color: #cfe9dc;
+        margin-top: 26px;
+        max-width: 22ch;
+      }
+      .strip {
+        display: flex;
+        gap: 12px;
+        margin-top: 44px;
+      }
+      .strip span {
+        font-size: 20px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 10px 22px;
+        border-radius: 999px;
+        color: #cfe9dc;
+        background: rgba(124, 255, 178, 0.07);
+        border: 1px solid rgba(124, 255, 178, 0.2);
+      }
+      .strip span:last-child {
+        color: #ffd166;
+        border-color: rgba(255, 209, 102, 0.4);
+        background: rgba(255, 209, 102, 0.1);
+      }
+      .mark {
+        position: absolute;
+        right: 80px;
+        top: 74px;
+        width: 74px;
+        height: 74px;
+        border-radius: 24px;
+        background: linear-gradient(150deg, #21d07a, #008751 55%, #024b2d);
+        box-shadow: 0 0 0 1px rgba(124, 255, 178, 0.4), 0 16px 50px rgba(0, 135, 81, 0.5);
+      }
+      .mark::after {
+        content: '';
+        position: absolute;
+        inset: 26px;
+        border-radius: 50%;
+        background: #ffd166;
+        box-shadow: 0 0 26px #ffd166;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="grid"></div>
+    <div class="mark"></div>
+    <div class="inner">
+      <span class="kicker">The clock is already running</span>
+      <h1>16.01.2027</h1>
+      <h2>Plan your vote. Organise your polling unit. Defend your mandate.</h2>
+      <div class="strip">
+        <span>Plan</span><span>Organise</span><span>Vote</span><span>Defend</span>
+      </div>
+    </div>
+  </body>
+</html>
