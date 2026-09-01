@@ -4,7 +4,8 @@ A single-page civic countdown: a live timer to **16 January 2027**, the plan
 (organise your polling unit → community → ward → LGA → state), and two paths
 depending on whether the reader holds a PVC.
 
-No build step, no dependencies, no tracking — plain static HTML, CSS and JS.
+No build step and no dependencies — plain static HTML, CSS and JS. Visits are
+counted with Google Analytics (see [Analytics](#analytics)).
 
 It is also an installable PWA — it can be pinned to the home screen on both
 Android and iOS, where it opens full screen and keeps working offline.
@@ -140,6 +141,41 @@ still shows the correct time.
   all transitions.
 - **Canvas.** Particle count scales with viewport area and caps at 90, DPR caps
   at 2. Neighbour lines are O(n²) but bounded by that cap.
-- **No analytics, no cookies, no fonts self-hosted.** The only third-party
-  request is Google Fonts; drop the `<link>` in `index.html` and the stack falls
-  back to system fonts cleanly.
+- **Third-party requests.** Google Fonts and Google Analytics, both from
+  `index.html`. Drop the fonts `<link>` and the stack falls back to system fonts
+  cleanly; drop the gtag block and `track()` in `script.js` turns into a no-op.
+  Nothing else on the page depends on either.
+
+## Analytics
+
+GA4 property `G-KQYBR3GKH0`, loaded from the gtag snippet in `index.html`.
+Events are sent through the `track()` helper at the top of `script.js`, which
+does nothing when `gtag` is missing — blocked by an extension, offline, or the
+tag failed to load. **No feature of the page may depend on analytics loading.**
+
+Beyond automatic pageviews, these are the events worth reading:
+
+| Event                         | Fired when                                     |
+| ----------------------------- | ---------------------------------------------- |
+| `smartballot_click`           | The SmartBallot supergroup button is clicked   |
+| `share`                       | A share chip is tapped (`method` = the network)|
+| `copy_link`                   | Either copy button (`link_target` says which)  |
+| `pledge_ready`                | "I'm ready" is tapped for the first time       |
+| `install_available`           | Chrome reports the app is installable          |
+| `install_prompt_accepted`     | The install prompt was accepted                |
+| `install_prompt_dismissed`    | The install prompt was declined                |
+| `install_instructions_opened` | An iOS visitor opened the how-to sheet         |
+| `app_installed`               | The app was added to a home screen             |
+
+`share` and its `method` parameter follow GA4's recommended-event naming, so
+they populate the standard reports without extra setup. The rest are custom
+events — to chart them you have to register them in GA under **Admin → Custom
+definitions**.
+
+The `config` call also sends a `display_mode` parameter (`standalone` or
+`browser`) so pinned-app visitors can be separated from browser visitors.
+That needs a custom dimension registering in the same place before it appears
+in reports.
+
+Note that GA sets cookies and is widely blocked, so treat the numbers as a
+floor rather than a count. The footer discloses the tracking.

@@ -12,6 +12,28 @@
     <meta name="theme-color" content="#04120c" />
     <meta name="color-scheme" content="dark" />
 
+    <!-- Google tag (gtag.js) — GA4 property G-KQYBR3GKH0.
+         Events are sent from script.js via its track() helper, which no-ops
+         when this script is blocked. Nothing on the page depends on it. -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQYBR3GKH0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-KQYBR3GKH0', {
+        // Register this as a custom dimension in GA to split pinned-app
+        // visitors from browser visitors.
+        display_mode:
+          (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+          window.navigator.standalone === true
+            ? 'standalone'
+            : 'browser'
+      });
+    </script>
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Countdown to January 16, 2027" />
     <meta
@@ -250,6 +272,7 @@
             href="https://smartballotapp.com/supergroup?code=NCZOG5PL-PCI6G75L"
             target="_blank"
             rel="noopener noreferrer"
+            data-track="smartballot"
           >
             <span>Join the SmartBallot supergroup</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -334,7 +357,7 @@
       </p>
       <p class="foot__fine">
         A civic countdown. Not affiliated with INEC or any political party. Election date is subject
-        to INEC's official timetable.
+        to INEC's official timetable. Visits are counted with Google Analytics.
       </p>
     </footer>
 

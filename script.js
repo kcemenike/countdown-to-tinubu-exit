@@ -28,6 +28,13 @@
     return Array.prototype.slice.call((root || document).querySelectorAll(sel));
   };
 
+  // GA4 event helper. Silently does nothing when gtag is absent — blocked by
+  // an extension, offline, or the tag simply failed to load. Nothing on this
+  // page is allowed to depend on analytics being available.
+  function track(name, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+  }
+
   /* ======================================================================
      1. Odometer reels
      ====================================================================== */
@@ -296,6 +303,7 @@
   $$('[data-copy]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var text = btn.getAttribute('data-copy') || window.location.href;
+      track('copy_link', { link_target: btn.getAttribute('data-copy') ? 'smartballot' : 'page' });
       copy(text).then(
         function () {
           say('Copied. Now send it to someone.');
@@ -325,8 +333,18 @@
       encodeURIComponent(SHARE_TEXT)
   };
 
+  $$('[data-track="smartballot"]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      track('smartballot_click', { link_url: link.href });
+    });
+  });
+
   $$('[data-share]').forEach(function (link) {
     var key = link.getAttribute('data-share');
+    link.addEventListener('click', function () {
+      // GA4 recommended event, so it shows up in the standard reports.
+      track('share', { method: key, content_type: 'page' });
+    });
     if (shareUrls[key]) link.href = shareUrls[key];
   });
 
@@ -349,7 +367,9 @@
     }
 
     readyBtn.addEventListener('click', function () {
+      var alreadyPledged = readyBtn.classList.contains('is-on');
       markReady(true);
+      if (!alreadyPledged) track('pledge_ready');
       try {
         localStorage.setItem(STORE_KEY, '1');
       } catch (e) {
@@ -413,6 +433,7 @@
       deferredPrompt = e;
       installSection.hidden = false;
       installSection.classList.add('is-in');
+      track('install_available', { platform: 'android' });
     });
 
     // iOS never fires that event, so Safari gets the instruction sheet instead.
@@ -426,6 +447,7 @@
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then(function (choice) {
+          track('install_prompt_' + (choice.outcome === 'accepted' ? 'accepted' : 'dismissed'));
           if (choice.outcome === 'accepted') {
             installSection.hidden = true;
             say('Pinned. The clock is on your home screen.');
@@ -434,12 +456,14 @@
         });
         return;
       }
+      track('install_instructions_opened', { platform: 'ios' });
       openSheet();
     });
 
     window.addEventListener('appinstalled', function () {
       deferredPrompt = null;
       installSection.hidden = true;
+      track('app_installed');
       say('Pinned. The clock is on your home screen.');
     });
   }
