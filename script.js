@@ -141,6 +141,28 @@
   var lastSecond = -1;
   var arrived = false;
 
+  // A web app cannot repaint its own home-screen icon, so the live day count
+  // goes in the title instead — the browser tab, the Android recents card and
+  // anything the reader bookmarks all pick it up. og:title is a separate tag,
+  // so link previews keep the full descriptive headline.
+  var lastTitle = '';
+
+  function paintTitle(days, ended) {
+    var next;
+    if (ended) {
+      next = 'Nigeria is voting — show up, stay, defend.';
+    } else if (days > 0) {
+      next = days + (days === 1 ? ' day' : ' days') + ' to 16 January 2027 — TinubuMustGo';
+    } else {
+      next = 'Today — 16 January 2027. Defend your mandate.';
+    }
+    // Only on rollover. Rewriting the title every second churns the tab for
+    // no reason and reads badly to screen readers.
+    if (next === lastTitle) return;
+    lastTitle = next;
+    document.title = next;
+  }
+
   function tick() {
     var remaining = TARGET - Date.now();
 
@@ -163,6 +185,8 @@
     paint('hours', hours, hours / 24);
     paint('minutes', minutes, minutes / 60);
     paint('seconds', seconds, seconds / 60);
+
+    paintTitle(days, arrived);
 
     // Screen readers get a calm, low-frequency summary rather than every second.
     if (srOut && seconds % 30 === 0) {

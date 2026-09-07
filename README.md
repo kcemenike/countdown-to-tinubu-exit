@@ -72,8 +72,9 @@ var TARGET = new Date('2027-01-16T00:00:00+01:00').getTime(); // election day, W
 var TERM_START = new Date('2023-05-29T00:00:00+01:00').getTime(); // "road so far" bar
 ```
 
-- **Election date.** INEC can move it. Change `TARGET` and the two hardcoded
-  date strings in `index.html` (the masthead pill and the `term__head` labels).
+- **Election date.** INEC can move it. Change `TARGET`, the two hardcoded date
+  strings in `index.html` (the masthead pill and the `term__head` labels), and
+  the ones in `script.js` (`paintTitle` and the screen-reader summary).
 - **SmartBallot link.** Appears twice in `index.html` — the button `href` and
   the `data-copy` attribute on "Copy the invite link" below it.
 - **Share copy.** `SHARE_TEXT` in `script.js`.
@@ -130,6 +131,13 @@ still shows the correct time.
   trailing `0`) translated by a percentage of its own height. The extra cell
   lets `9 → 0` roll forward instead of snapping backwards; the reel silently
   resets to index 0 once the transition finishes.
+- **Live page title.** `document.title` carries the day count (`131 days to 16
+  January 2027 — TinubuMustGo`), rewritten only when the day rolls over. This
+  is the closest thing to a "live" home-screen icon that the web platform
+  allows: the icon PNG itself is fixed at install time on both Android and iOS
+  and cannot be repainted, and the Badging API is iOS-only, needs notification
+  permission, and would show a stale number between launches. `og:title` is a
+  separate tag, so share previews are unaffected.
 - **Rings.** Each unit's SVG arc shows how much of that cycle is left
   (seconds/60, minutes/60, hours/24, days/365).
 - **Ticking.** A 250 ms interval that early-returns unless the whole second

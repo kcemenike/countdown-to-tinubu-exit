@@ -7,7 +7,7 @@
    Bump CACHE when you change the shell — the old cache is dropped on activate.
    ========================================================================== */
 
-var CACHE = 'countdown-2027-v3';
+var CACHE = 'countdown-2027-v4';
 
 // Everything needed to render the page from a cold, offline start.
 var SHELL = [
